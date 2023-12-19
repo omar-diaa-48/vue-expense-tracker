@@ -17,7 +17,7 @@
         placeholder="Enter amount..."
       />
     </div>
-    <button :disabled="amount === 0" class="btn">Add transaction</button>
+    <button :disabled="!text || !amount" class="btn">Add transaction</button>
   </form>
 </template>
 
