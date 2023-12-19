@@ -1,4 +1,4 @@
-import { TransactionModel } from '@/models/transaction.model'
+import type { ITransaction } from '@/models/transaction.interface'
 import { defineStore } from 'pinia'
 
 export const useTransactionStore = defineStore('transactions', {
@@ -9,14 +9,14 @@ export const useTransactionStore = defineStore('transactions', {
       { id: 3, text: "Book", amount: -10 },
       { id: 4, text: "Camera", amount: -12.21 },
       { id: 5, text: "Flower", amount: -9.54 },
-    ] as TransactionModel[]
+    ] as ITransaction[]
   }),
   getters: {
-    getIncome: (state) => state.transactions.filter((transaction: TransactionModel) => transaction.amount > 0).reduce((previous, current) => previous + current.amount, 0),
-    getExpenses: (state) => state.transactions.filter((transaction: TransactionModel) => transaction.amount < 0).reduce((previous, current) => previous + current.amount, 0),
+    getIncome: (state) => state.transactions.filter((transaction: ITransaction) => transaction.amount > 0).reduce((previous, current) => previous + current.amount, 0),
+    getExpenses: (state) => state.transactions.filter((transaction: ITransaction) => transaction.amount < 0).reduce((previous, current) => previous + current.amount, 0),
   },
   actions: {
-    addTransaction(transaction: TransactionModel) {
+    addTransaction(transaction: ITransaction) {
       this.transactions = [...this.transactions, transaction]
     }
   }
