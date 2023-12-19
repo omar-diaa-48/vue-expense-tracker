@@ -1,5 +1,16 @@
-<script setup lang="ts"></script>
+<script lang="ts">
+import { defineComponent } from "vue";
+import Header from "./components/Header.vue";
 
-<template>My App</template>
+export default defineComponent({
+  components: {
+    Header,
+  },
+});
+</script>
+
+<template>
+  <Header />
+</template>
 
 <style scoped></style>
