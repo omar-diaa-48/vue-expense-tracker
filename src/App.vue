@@ -7,16 +7,15 @@ import TransactionList from "./components/TransactionList.vue";
 import AddTransaction from "./components/AddTransaction.vue";
 
 import { useTransactionStore } from "@/stores/transactions";
+import { storeToRefs } from "pinia";
 
 const transactionsStore = useTransactionStore();
 
-const transactions = transactionsStore.transactions;
+const transactions = storeToRefs(transactionsStore);
 
-const total = computed(() =>
-  transactions.reduce((previous, current) => previous + current.amount, 0)
-);
-const income = computed(() => transactionsStore.getIncome);
-const expenses = computed(() => transactionsStore.getExpenses);
+const total = computed(() => transactionsStore.total);
+const income = computed(() => transactionsStore.income);
+const expenses = computed(() => transactionsStore.expenses);
 </script>
 
 <template>
@@ -24,7 +23,7 @@ const expenses = computed(() => transactionsStore.getExpenses);
   <div class="container">
     <Balance :total="total" />
     <IncomeExpenses :income="income" :expenses="expenses" />
-    <TransactionList :transactions="transactions" />
+    <TransactionList :transactions="transactions.transactions.value" />
     <AddTransaction />
   </div>
 </template>

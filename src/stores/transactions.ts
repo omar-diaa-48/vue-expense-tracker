@@ -12,13 +12,17 @@ export const useTransactionStore = defineStore('transactions', {
     ] as ITransaction[]
   }),
   getters: {
-    getIncome: (state) => state.transactions.filter((transaction: ITransaction) => transaction.amount > 0).reduce((previous, current) => previous + current.amount, 0),
-    getExpenses: (state) => state.transactions.filter((transaction: ITransaction) => transaction.amount < 0).reduce((previous, current) => previous + current.amount, 0),
+    income: (state) => state.transactions.filter((transaction: ITransaction) => transaction.amount > 0).reduce((previous, current) => previous + current.amount, 0),
+    expenses: (state) => state.transactions.filter((transaction: ITransaction) => transaction.amount < 0).reduce((previous, current) => previous + current.amount, 0),
+    total: (state) => state.transactions.reduce((previous, current) => previous + current.amount, 0)
   },
   actions: {
     addTransaction(transaction: Omit<ITransaction, "id">) {
       const id = this.transactions.length + 1;
       this.transactions.push({ ...transaction, id })
+    },
+    deleteTransaction(transactionId: number) {
+      this.transactions = this.transactions.filter((transaction) => transaction.id !== transactionId)
     }
   }
 })
