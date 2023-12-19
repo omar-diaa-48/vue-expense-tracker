@@ -11,18 +11,14 @@
   </div>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { defineComponent } from "vue";
 import { useTransactionStore } from "@/stores/transactions";
 
 // const transactionsStore = useTransactionStore();
 
-export default defineComponent({
-  data() {
-    return {
-      income: 0,
-      expenses: 0,
-    };
-  },
+defineProps({
+  income: Number,
+  expenses: Number,
 });
 </script>

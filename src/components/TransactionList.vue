@@ -12,13 +12,15 @@
   </ul>
 </template>
 
-<script lang="ts">
-import { TransactionModel } from "@/models/transaction.model";
-import { defineComponent } from "vue";
+<script setup lang="ts">
+import type { ITransaction } from "@/models/transaction.interface";
+import type { PropType } from "vue";
 
-export default defineComponent({
-  props: {
-    transactions: Array<TransactionModel>,
+const props = defineProps({
+  transactions: {
+    type: Array as PropType<Array<ITransaction>>,
+    required: true,
+    default: () => [],
   },
 });
 </script>
