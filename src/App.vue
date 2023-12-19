@@ -15,6 +15,9 @@ const transactions = ref<ITransaction[]>([
   { id: 5, text: "Flower", amount: -9.54 },
 ]);
 
+const total = computed(() =>
+  transactions.value.reduce((previous, current) => previous + current.amount, 0)
+);
 const income = computed(() =>
   transactions.value
     .filter((transaction) => transaction.amount > 0)
@@ -30,7 +33,7 @@ const expenses = computed(() =>
 <template>
   <Header />
   <div class="container">
-    <Balance />
+    <Balance :total="total" />
     <IncomeExpenses :income="income" :expenses="expenses" />
     <TransactionList :transactions="transactions" />
     <AddTransaction />
