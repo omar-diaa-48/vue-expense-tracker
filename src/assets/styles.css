@@ -101,6 +101,11 @@ input[type="number"] {
   width: 100%;
 }
 
+.btn:disabled {
+  cursor: not-allowed;
+  background-color: #bcbcbd;
+}
+
 .btn:focus,
 .delete-btn:focus {
   outline: 0;

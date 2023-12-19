@@ -5,29 +5,18 @@ import Balance from "./components/Balance.vue";
 import IncomeExpenses from "./components/IncomeExpenses.vue";
 import TransactionList from "./components/TransactionList.vue";
 import AddTransaction from "./components/AddTransaction.vue";
-import type { ITransaction } from "./models/transaction.interface";
 
-const transactions = ref<ITransaction[]>([
-  { id: 1, text: "Flower", amount: -19.99 },
-  { id: 2, text: "Salary", amount: 290.88 },
-  { id: 3, text: "Book", amount: -10 },
-  { id: 4, text: "Camera", amount: -12.21 },
-  { id: 5, text: "Flower", amount: -9.54 },
-]);
+import { useTransactionStore } from "@/stores/transactions";
+
+const transactionsStore = useTransactionStore();
+
+const transactions = transactionsStore.transactions;
 
 const total = computed(() =>
-  transactions.value.reduce((previous, current) => previous + current.amount, 0)
+  transactions.reduce((previous, current) => previous + current.amount, 0)
 );
-const income = computed(() =>
-  transactions.value
-    .filter((transaction) => transaction.amount > 0)
-    .reduce((previous, current) => previous + current.amount, 0)
-);
-const expenses = computed(() =>
-  transactions.value
-    .filter((transaction) => transaction.amount < 0)
-    .reduce((previous, current) => previous + current.amount, 0)
-);
+const income = computed(() => transactionsStore.getIncome);
+const expenses = computed(() => transactionsStore.getExpenses);
 </script>
 
 <template>
